@@ -1,0 +1,6 @@
+/home/jarvis/ACC/slim-use/build/CMakeFiles/intrinsics_gen.dir
+/home/jarvis/ACC/slim-use/build/CMakeFiles/omp_gen.dir
+/home/jarvis/ACC/slim-use/build/CMakeFiles/acc_gen.dir
+/home/jarvis/ACC/slim-use/build/CMakeFiles/cs-ssa.dir
+/home/jarvis/ACC/slim-use/build/CMakeFiles/edit_cache.dir
+/home/jarvis/ACC/slim-use/build/CMakeFiles/rebuild_cache.dir

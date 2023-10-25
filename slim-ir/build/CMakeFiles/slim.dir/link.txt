@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -shared -Wl,-soname,libslim.so -o libslim.so CMakeFiles/slim.dir/IR.cpp.o CMakeFiles/slim.dir/Instructions.cpp.o CMakeFiles/slim.dir/Operand.cpp.o   -L/usr/lib/llvm-14/lib  -Wl,-rpath,/usr/lib/llvm-14/lib: /usr/lib/llvm-14/lib/libLLVM-14.so.1 

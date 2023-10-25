@@ -1,0 +1,10 @@
+/home/jarvis/ACC/slim-ir/build/CMakeFiles/intrinsics_gen.dir
+/home/jarvis/ACC/slim-ir/build/CMakeFiles/omp_gen.dir
+/home/jarvis/ACC/slim-ir/build/CMakeFiles/acc_gen.dir
+/home/jarvis/ACC/slim-ir/build/CMakeFiles/slim.dir
+/home/jarvis/ACC/slim-ir/build/CMakeFiles/edit_cache.dir
+/home/jarvis/ACC/slim-ir/build/CMakeFiles/rebuild_cache.dir
+/home/jarvis/ACC/slim-ir/build/CMakeFiles/list_install_components.dir
+/home/jarvis/ACC/slim-ir/build/CMakeFiles/install.dir
+/home/jarvis/ACC/slim-ir/build/CMakeFiles/install/local.dir
+/home/jarvis/ACC/slim-ir/build/CMakeFiles/install/strip.dir

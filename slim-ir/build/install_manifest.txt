@@ -1,0 +1,4 @@
+/usr/local/lib/libslim.so
+/usr/local/include/slim/Operand.h
+/usr/local/include/slim/IR.h
+/usr/local/include/slim/Instructions.h
