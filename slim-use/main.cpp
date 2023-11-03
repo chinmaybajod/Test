@@ -43,6 +43,7 @@ int main(int argc, char *argv[]) {
 
     transformIR->dumpIR();
 
+    transformIR->dumpIR_modified();
     
     return 0;
 }

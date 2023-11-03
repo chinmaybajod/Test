@@ -100,6 +100,9 @@ public:
     // Dump the IR
     void dumpIR();
 
+    // Modified dump to track variables
+    void dumpIR_modified();
+
     unsigned getNumCallInstructions(llvm::Function *function);
 };
 

@@ -1294,6 +1294,111 @@ void slim::IR::dumpIR()
     }
 }
 
+// Modified dump to track variables
+void slim::IR::dumpIR_modified()
+{
+    // Keeps track whether the function details have been printed or not
+    std::unordered_map<llvm::Function *, bool> func_visited;
+    
+    // Iterate over the function basic block map
+    for (auto &entry : this->func_bb_to_inst_id)
+    {
+        llvm::Function *func = entry.first.first;
+        llvm::BasicBlock *basic_block = entry.first.second;
+
+        // Check if the function details are already printed and if not, print the details and mark
+        // the function as visited
+        if (func_visited.find(func) == func_visited.end())
+        {
+            if (func->getSubprogram())
+                llvm::outs() << "[" << func->getSubprogram()->getFilename() << "] ";
+            
+            llvm::outs() << "Function: " << func->getName() << "\n";
+            llvm::outs() << "-------------------------------------" << "\n";          
+            
+            // Mark the function as visited
+            func_visited[func] = true;
+        }
+
+        // Print the basic block name
+        llvm::outs() << "Basic block " << this->getBasicBlockId(basic_block) << ": " << basic_block->getName() << " (Predecessors: ";
+        llvm::outs() << "[";
+
+        // Print the names of predecessor basic blocks
+        for (auto pred = llvm::pred_begin(basic_block); pred != llvm::pred_end(basic_block); pred++)
+        {
+            llvm::outs() << (*pred)->getName();
+
+            if (std::next(pred) != ((llvm::pred_end(basic_block))))
+            {
+                llvm::outs() << ", ";
+            }
+        }
+
+        llvm::outs() << "])\n";
+
+        //This map contains enum to string to get instruction types
+        std::unordered_map<InstructionType, std::string> ETS; 
+        ETS[ALLOCA] = "ALLOCA";
+        ETS[LOAD] = "LOAD";
+        ETS[STORE] = "STORE";
+        ETS[FENCE] = "FENCE";
+        ETS[ATOMIC_COMPARE_CHANGE] = "ATOMIC_COMPARE_CHANGE";
+        ETS[ATOMIC_MODIFY_MEM] = "ATOMIC_MODIFY_MEM";
+        ETS[GET_ELEMENT_PTR] = "GET_ELEMENT_PTR";
+        ETS[FP_NEGATION] = "FP_NEGATION";
+        ETS[BINARY_OPERATION] = "BINARY_OPERATION";
+        ETS[EXTRACT_ELEMENT] = "EXTRACT_ELEMENT";
+        ETS[INSERT_ELEMENT] = "INSERT_ELEMENT";
+        ETS[SHUFFLE_VECTOR] = "SHUFFLE_VECTOR";
+        ETS[EXTRACT_VALUE] = "EXTRACT_VALUE";
+        ETS[INSERT_VALUE] = "INSERT_VALUE";
+        ETS[TRUNC] = "TRUNC";
+        ETS[ZEXT] = "ZEXT";
+        ETS[SEXT] = "SEXT";
+        ETS[FPEXT] = "FPEXT";
+        ETS[FP_TO_INT] = "FP_TO_INT";
+        ETS[INT_TO_FP] = "INT_TO_FP";
+        ETS[PTR_TO_INT] = "PTR_TO_INT";
+        ETS[INT_TO_PTR] = "INT_TO_PTR";
+        ETS[BITCAST] = "BITCAST";
+        ETS[ADDR_SPACE] = "ADDR_SPACE";
+        ETS[COMPARE] = "COMPARE";
+        ETS[PHI] = "PHI";
+        ETS[SELECT] = "SELECT";
+        ETS[FREEZE] = "FREEZE";
+        ETS[CALL] = "CALL";
+        ETS[VAR_ARG] = "VAR_ARG";
+        ETS[LANDING_PAD] = "LANDING_PAD";
+        ETS[CATCH_PAD] = "CATCH_PAD";
+        ETS[CLEANUP_PAD] = "CLEANUP_PAD";
+        ETS[RETURN] = "RETURN";
+        ETS[BRANCH] = "BRANCH";
+        ETS[SWITCH] = "SWITCH";
+        ETS[INDIRECT_BRANCH] = "INDIRECT_BRANCH";
+        ETS[INVOKE] = "INVOKE";
+        ETS[CALL_BR] = "CALL_BR";
+        ETS[RESUME] = "RESUME";
+        ETS[CATCH_SWITCH] = "CATCH_SWITCH";
+        ETS[CATCH_RETURN] = "CATCH_RETURN";
+        ETS[CLEANUP_RETURN] = "CLEANUP_RETURN";
+        ETS[UNREACHABLE] = "UNREACHABLE";
+        ETS[OTHER] = "OTHER";
+        ETS[NOT_ASSIGNED] = "NOT_ASSIGNED";
+
+        for (long long instruction_id : entry.second)
+        {
+            BaseInstruction *instruction = inst_id_to_object[instruction_id];
+            llvm::outs() << " [" << instruction_id << "]";
+            llvm::outs() << "\t TYPE : " << ETS[instruction->getInstructionType()] << "\t : ";
+            instruction->printInstruction();
+
+        }
+
+        llvm::outs() << "\n\n";
+    }
+}
+
 unsigned slim::IR::getNumCallInstructions(llvm::Function *function)
 {
     return this->num_call_instructions[function];
